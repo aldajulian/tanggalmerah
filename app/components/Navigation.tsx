@@ -38,7 +38,7 @@ export const Navigation = () => {
       drag={!setting}
       dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
       dragElastic={0.1}
-      className="navigation flex flex-col fixed z-20 mx-auto left-0 right-0 w-fit p-1 bg-white/70 backdrop-blur dark:bg-black/60 select-none overflow-hidden"
+      className="navigation flex flex-col fixed z-30 mx-auto left-0 right-0 w-fit p-1 bg-white/70 backdrop-blur dark:bg-black/60 select-none overflow-hidden"
     >
       <motion.div
         animate={{
