@@ -1,18 +1,21 @@
 "use client";
 import { format } from "date-fns";
-import { id } from "date-fns/locale";
+import { id, enUS } from "date-fns/locale";
 import { useState, useEffect } from "react";
 import { Grid, Calendar, List, Setting } from "./Icons";
 import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSettingsStore } from "../store/settingsStore";
+import { dictionary } from "../data/dictionary";
 
 export const Navigation = () => {
   const [setting, setSetting] = useState(false);
-  const date = format(new Date(), "d", { locale: id });
   const pathname = usePathname();
-  const { weekStartsOn, setWeekStartsOn } = useSettingsStore();
+  const { weekStartsOn, setWeekStartsOn, language, setLanguage } =
+    useSettingsStore();
+
+  const t = dictionary[language];
 
   // Hydration fix
   const [mounted, setMounted] = useState(false);
@@ -20,6 +23,9 @@ export const Navigation = () => {
     setMounted(true);
   }, []);
 
+  const date = format(new Date(), "d", {
+    locale: language === "id" ? id : enUS,
+  });
   const isGrid = pathname === "/year";
   const isStack = pathname === "/";
   const isList = pathname === "/list";
@@ -30,8 +36,8 @@ export const Navigation = () => {
     <motion.div
       animate={{
         width: setting ? "380px" : "320px",
-        height: setting ? "160px" : "62px",
-        borderRadius: setting ? "24px" : "50px",
+        height: setting ? "220px" : "62px",
+        borderRadius: setting ? "42px" : "50px",
         bottom: setting ? "25px" : "25px",
       }}
       whileTap={{ scale: !setting ? 1.05 : 1 }}
@@ -95,6 +101,7 @@ export const Navigation = () => {
         >
           <Setting />
         </motion.button>
+        <motion.div />
       </motion.div>
 
       <AnimatePresence>
@@ -103,11 +110,11 @@ export const Navigation = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex flex-col items-center justify-start pt-6 px-6 w-full h-full space-y-4"
+            className="flex flex-col items-center justify-start pt-4 px-4 w-full h-full space-y-4"
           >
             <div className="flex items-center justify-between w-full">
               <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                Awal Minggu
+                {t.settings.weekStartsOn}
               </span>
               <div className="flex bg-gray-200 dark:bg-gray-800 rounded-lg p-1">
                 <button
@@ -118,7 +125,7 @@ export const Navigation = () => {
                       : "text-gray-500 dark:text-gray-400"
                   }`}
                 >
-                  Senin
+                  {t.settings.monday}
                 </button>
                 <button
                   onClick={() => setWeekStartsOn("sunday")}
@@ -128,7 +135,35 @@ export const Navigation = () => {
                       : "text-gray-500 dark:text-gray-400"
                   }`}
                 >
-                  Minggu
+                  {t.settings.sunday}
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between w-full">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                {t.settings.language}
+              </span>
+              <div className="flex bg-gray-200 dark:bg-gray-800 rounded-lg p-1">
+                <button
+                  onClick={() => setLanguage("id")}
+                  className={`px-3 py-1 text-xs rounded-md transition-all ${
+                    language === "id"
+                      ? "bg-white dark:bg-gray-600 shadow-sm text-black dark:text-white"
+                      : "text-gray-500 dark:text-gray-400"
+                  }`}
+                >
+                  {t.settings.indonesian}
+                </button>
+                <button
+                  onClick={() => setLanguage("en")}
+                  className={`px-3 py-1 text-xs rounded-md transition-all ${
+                    language === "en"
+                      ? "bg-white dark:bg-gray-600 shadow-sm text-black dark:text-white"
+                      : "text-gray-500 dark:text-gray-400"
+                  }`}
+                >
+                  {t.settings.english}
                 </button>
               </div>
             </div>

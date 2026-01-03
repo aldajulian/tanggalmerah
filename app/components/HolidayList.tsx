@@ -3,7 +3,9 @@
 import * as React from "react";
 import { holidays } from "../../data/holidays";
 import { parseISO, format } from "date-fns";
-import { id } from "date-fns/locale";
+import { id, enUS } from "date-fns/locale";
+import { useSettingsStore } from "../store/settingsStore";
+import { dictionary } from "../data/dictionary";
 
 type Holiday = {
   date: string;
@@ -23,9 +25,24 @@ const allHolidays: Holiday[] = [
 ].sort((a, b) => a.date.localeCompare(b.date));
 
 export function HolidayList() {
+  const { language } = useSettingsStore();
+  const t = dictionary[language];
+
+  // Client-side only rendering to avoid mismatch if using store in SSg/SSR?
+  // Since we are in "use client", we are fine, but hydration mismatch might occur if store state differs from server.
+  // We should ideally use the hydration pattern again.
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   const groupedHolidays = allHolidays.reduce((groups, holiday) => {
     const date = parseISO(holiday.date);
-    const monthKey = format(date, "MMMM", { locale: id });
+    const monthKey = format(date, "MMMM", {
+      locale: language === "id" ? id : enUS,
+    });
     if (!groups[monthKey]) {
       groups[monthKey] = [];
     }
@@ -37,7 +54,7 @@ export function HolidayList() {
     <div className="w-full max-w-2xl mx-auto space-y-6">
       {Object.entries(groupedHolidays).map(([month, holidaysInMonth]) => (
         <div key={month}>
-          <h3 className="text-lg font-medium sticky top-0 bg-white/50 backdrop-blur dark:bg-background/50 py-2 px-4 z-10 border-b border-black/5">
+          <h3 className="text-base md:text-lg font-medium text-neutral-400 dark:text-neutral-400 sticky top-0 bg-white/50 backdrop-blur dark:bg-background/50 py-2 px-3 z-10 border-b border-black/5">
             {month}
           </h3>
           <div className="">
@@ -50,10 +67,16 @@ export function HolidayList() {
                   className={`flex gap-6 p-4 border-b border-neutral-100 dark:border-neutral-800 last:border-b-0`}
                 >
                   <div className="flex flex-col min-w-20 sm:mt-0 text-gray-700 dark:text-gray-300 whitespace-nowrap">
-                    <span className="text-xs font-semibold text-neutral-400 dark:text-neutral-500">
-                      {format(date, "EEE", { locale: id })}
+                    <span className="text-xs font-medium text-neutral-400 dark:text-neutral-500">
+                      {format(date, "EEE", {
+                        locale: language === "id" ? id : enUS,
+                      })}
                     </span>
-                    <span>{format(date, "d MMM", { locale: id })}</span>
+                    <span className="text-sm text-neutral-600 dark:text-neutral-400">
+                      {format(date, "d MMM", {
+                        locale: language === "id" ? id : enUS,
+                      })}
+                    </span>
                   </div>
                   <div
                     className={`flex-shrink-0 size-2 rounded-full mt-2 ${
@@ -61,7 +84,9 @@ export function HolidayList() {
                     }`}
                   />
                   <div className="flex flex-col">
-                    <span className="font-medium">{holiday.title}</span>
+                    <span className="font-medium text-neutral-600 dark:text-neutral-400">
+                      {holiday.title}
+                    </span>
                     <span
                       className={`text-sm ${
                         isNational
@@ -69,7 +94,7 @@ export function HolidayList() {
                           : "text-sky-600 dark:text-sky-400"
                       }`}
                     >
-                      {isNational ? "Libur Nasional" : "Cuti Bersama"}
+                      {isNational ? t.legend.national : t.legend.collective}
                     </span>
                   </div>
                 </div>

@@ -9,8 +9,9 @@ import {
   getDay,
   isWeekend,
 } from "date-fns";
-import { enUS } from "date-fns/locale";
+import { enUS, id } from "date-fns/locale";
 import { useSettingsStore } from "../store/settingsStore";
+import { dictionary } from "../data/dictionary";
 import { useEffect, useState } from "react";
 
 type HolidayType = "national" | "collective";
@@ -38,7 +39,7 @@ export function MonthCalendar({
   stickyHeader = false,
   compact = false,
 }: MonthCalendarProps) {
-  const { weekStartsOn } = useSettingsStore();
+  const { weekStartsOn, language } = useSettingsStore();
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -61,10 +62,12 @@ export function MonthCalendar({
   // Create empty slots for days before the first day of the month
   const emptySlots = Array.from({ length: startDayIndex });
 
-  const weekDayNames =
-    weekStartsOn === "monday"
-      ? ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"]
-      : ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+  // Mapping from our static array to dictionary values if we want full i18n for days
+  // But dictionary has weekdays arrays.
+
+  // Actually, let's use dictionary for weekdays
+  const t = dictionary[language];
+  const currentWeekDayNames = t.weekdays[weekStartsOn];
 
   // if (!hydrated) {
   //   return (
@@ -78,37 +81,37 @@ export function MonthCalendar({
     <div className={`w-full ${className}`}>
       {/* Month Header */}
       <div
-        className={`${
-          compact ? "text-sm font-semibold" : "text-lg font-medium"
-        } px-3 dark:text-white ${
+        className={`text-base font-medium py-2 px-3 text-neutral-900 dark:text-neutral-100 ${
           stickyHeader
-            ? "sticky top-0 bg-background/80 backdrop-blur-sm z-20 py-2 border-b border-black/5 dark:border-white/5"
+            ? "sticky top-0 bg-background/80 backdrop-blur-sm z-20"
             : ""
         }`}
       >
-        {format(month, "MMMM", { locale: enUS })}
+        {format(month, "MMMM", { locale: language === "id" ? id : enUS })}
       </div>
 
       <div
         className={`grid grid-cols-7 ${
           compact
             ? "gap-y-0.5 gap-0.5"
-            : "sticky top-[45px] z-20 gap-y-0.5 gap-0.5"
+            : "sticky top-[39px] z-20 gap-y-0.5 gap-0.5"
         }`}
       >
         {/* Weekday Headers */}
         {!hideWeekdays && (
           <div
-            className={`col-span-7 grid grid-cols-7 mb-2 border-b border-gray-100 dark:border-gray-800 ${
-              stickyHeader ? " bg-background/80 backdrop-blur-sm z-10" : ""
+            className={`col-span-7 grid grid-cols-7 mb-2 ${
+              stickyHeader
+                ? "bg-background/80 backdrop-blur-sm z-10 border-b border-t border-black/5 dark:border-white/5"
+                : ""
             } px-2`}
           >
-            {weekDayNames.map((day) => (
+            {currentWeekDayNames.map((day) => (
               <div
                 key={day}
                 className={`text-left ${
-                  compact ? "text-[8px] px-0.5 py-1" : "text-sm px-1 py-2"
-                } font-normal text-gray-500 capitalize`}
+                  compact ? "text-[8px] px-0.5 pb-1" : "text-sm px-1 py-2"
+                } font-medium text-gray-500 capitalize`}
               >
                 {day}
               </div>
@@ -141,8 +144,8 @@ export function MonthCalendar({
               key={dateStr}
               className={`relative aspect-cell ${
                 compact
-                  ? "p-1 text-[10px] rounded-sm"
-                  : "p-1.5 md:p-2 text-xs md:text-base  rounded-lg"
+                  ? "p-1 md:p-2 text-[8px] md:text-[11px] rounded-sm"
+                  : "p-1.5 md:p-2 text-xs md:text-base rounded-lg"
               } w-full flex items-start justify-start font-medium leading-none
                 ${
                   isNational

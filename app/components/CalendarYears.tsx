@@ -20,8 +20,8 @@ export function CalendarYears() {
   ];
 
   return (
-    <div className="w-full px-2">
-      <div className="grid grid-cols-2 gap-x-4 md:gap-x-8 gap-y-12 justify-center">
+    <div className="w-full">
+      <div className="grid grid-cols-2 gap-x-4 md:gap-x-8 gap-y-4 md:gap-x-8 justify-center">
         {months.map((month) => (
           <MonthCalendar
             key={month.toISOString()}
