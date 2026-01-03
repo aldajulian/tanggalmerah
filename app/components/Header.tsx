@@ -31,7 +31,7 @@ export const Header = () => {
   return (
     <header className="flex w-full flex-col items-start mb-6 text-center px-4">
       <div className="flex items-center gap-2 border font-semibold border-black/15 dark:border-white/15 text-sm px-3 py-1 rounded-full mb-4 dark:text-gray-300">
-        <span className="text-base">🇮🇩</span> 2026
+        2026
       </div>
       <h1 className="text-2xl md:text-4xl font-semibold mb-6 dark:text-white text-left">
         {t.title}{" "}

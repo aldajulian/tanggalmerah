@@ -4,6 +4,7 @@ import "./globals.css";
 import { ServiceWorkerRegister } from "./components/ServiceWorkerRegister";
 import { Navigation } from "./components/Navigation";
 import { Header } from "./components/Header";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,10 +20,30 @@ export const metadata: Metadata = {
   title: "Bila Libur",
   description:
     "Bila Libur adalah aplikasi untuk mengetahui libur nasional dan sekolah di Indonesia.",
+  icons: {
+    icon: [
+      {
+        url: "/favicon.svg",
+        sizes: "32x32",
+        type: "image/svg+xml",
+      },
+      {
+        url: "/favicon.svg",
+        sizes: "16x16",
+        type: "image/png",
+      },
+    ],
+    apple: "/favicon.svg",
+  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#212121" },
+  ],
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -35,8 +56,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex min-h-screen justify-center font-sans dark:bg-background">
-          <main className="flex min-h-screen w-full max-w-2xl flex-col pt-12 pb-24 bg-white dark:bg-background items-center">
+        <ThemeProvider />
+        <div className="flex min-h-screen justify-center font-sans bg-background">
+          <main className="flex min-h-screen w-full max-w-2xl flex-col pt-12 pb-24 bg-background items-center">
             <Header />
 
             <Navigation />

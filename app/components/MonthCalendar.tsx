@@ -111,7 +111,7 @@ export function MonthCalendar({
                 key={day}
                 className={`text-left ${
                   compact ? "text-[8px] px-0.5 pb-1" : "text-sm px-1 py-2"
-                } font-medium text-gray-500 capitalize`}
+                } font-medium text-neutral-500 capitalize`}
               >
                 {day}
               </div>

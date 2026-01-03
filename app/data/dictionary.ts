@@ -15,6 +15,10 @@ export const dictionary = {
       sunday: "Minggu",
       indonesian: "Bahasa",
       english: "English",
+      theme: "Tampilan",
+      system: "Sistem",
+      light: "Terang",
+      dark: "Gelap",
     },
     weekdays: {
       monday: ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"],
@@ -41,6 +45,10 @@ export const dictionary = {
       sunday: "Sunday",
       indonesian: "Bahasa",
       english: "English",
+      theme: "Theme",
+      system: "System",
+      light: "Light",
+      dark: "Dark",
     },
     weekdays: {
       monday: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],

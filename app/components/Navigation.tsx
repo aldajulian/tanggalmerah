@@ -9,11 +9,24 @@ import { usePathname } from "next/navigation";
 import { useSettingsStore } from "../store/settingsStore";
 import { dictionary } from "../data/dictionary";
 
+const springTransition = {
+  type: "spring",
+  stiffness: 250,
+  damping: 25,
+  mass: 1,
+};
+
 export const Navigation = () => {
   const [setting, setSetting] = useState(false);
   const pathname = usePathname();
-  const { weekStartsOn, setWeekStartsOn, language, setLanguage } =
-    useSettingsStore();
+  const {
+    weekStartsOn,
+    setWeekStartsOn,
+    language,
+    setLanguage,
+    theme,
+    setTheme,
+  } = useSettingsStore();
 
   const t = dictionary[language];
 
@@ -36,14 +49,15 @@ export const Navigation = () => {
     <motion.div
       animate={{
         width: setting ? "380px" : "320px",
-        height: setting ? "220px" : "62px",
+        height: setting ? "280px" : "62px",
         borderRadius: setting ? "42px" : "50px",
         bottom: setting ? "25px" : "25px",
       }}
       whileTap={{ scale: !setting ? 1.05 : 1 }}
-      drag={!setting}
+      transition={{ bounce: 0.2 }}
       dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
       dragElastic={0.1}
+      drag={!setting}
       className="navigation flex flex-col fixed z-30 mx-auto left-0 right-0 w-fit p-1 bg-white/70 backdrop-blur dark:bg-black/60 select-none overflow-hidden"
     >
       <motion.div
@@ -73,7 +87,7 @@ export const Navigation = () => {
           >
             <Calendar />
             <span
-              className="block absolute top-[55%] -translate-y-[55%] right-1/2 translate-x-1/2 text-xs leading-none"
+              className="block absolute top-[55%] -translate-y-[55%] right-1/2 translate-x-1/2 text-xs leading-none text-red-500 font-semibold"
               suppressHydrationWarning={true}
             >
               {date}
@@ -164,6 +178,44 @@ export const Navigation = () => {
                   }`}
                 >
                   {t.settings.english}
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between w-full">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                {t.settings.theme}
+              </span>
+              <div className="flex bg-gray-200 dark:bg-gray-800 rounded-lg p-1">
+                <button
+                  onClick={() => setTheme("system")}
+                  className={`px-3 py-1 text-xs rounded-md transition-all ${
+                    theme === "system"
+                      ? "bg-white dark:bg-gray-600 shadow-sm text-black dark:text-white"
+                      : "text-gray-500 dark:text-gray-400"
+                  }`}
+                >
+                  {t.settings.system}
+                </button>
+                <button
+                  onClick={() => setTheme("light")}
+                  className={`px-3 py-1 text-xs rounded-md transition-all ${
+                    theme === "light"
+                      ? "bg-white dark:bg-gray-600 shadow-sm text-black dark:text-white"
+                      : "text-gray-500 dark:text-gray-400"
+                  }`}
+                >
+                  {t.settings.light}
+                </button>
+                <button
+                  onClick={() => setTheme("dark")}
+                  className={`px-3 py-1 text-xs rounded-md transition-all ${
+                    theme === "dark"
+                      ? "bg-white dark:bg-gray-600 shadow-sm text-black dark:text-white"
+                      : "text-gray-500 dark:text-gray-400"
+                  }`}
+                >
+                  {t.settings.dark}
                 </button>
               </div>
             </div>

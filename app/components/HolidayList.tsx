@@ -28,9 +28,6 @@ export function HolidayList() {
   const { language } = useSettingsStore();
   const t = dictionary[language];
 
-  // Client-side only rendering to avoid mismatch if using store in SSg/SSR?
-  // Since we are in "use client", we are fine, but hydration mismatch might occur if store state differs from server.
-  // We should ideally use the hydration pattern again.
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => {
     setMounted(true);
@@ -54,7 +51,7 @@ export function HolidayList() {
     <div className="w-full max-w-2xl mx-auto space-y-6">
       {Object.entries(groupedHolidays).map(([month, holidaysInMonth]) => (
         <div key={month}>
-          <h3 className="text-base md:text-lg font-medium text-neutral-400 dark:text-neutral-400 sticky top-0 bg-white/50 backdrop-blur dark:bg-background/50 py-2 px-3 z-10 border-b border-black/5">
+          <h3 className="text-base font-medium text-neutral-400 dark:text-neutral-400 sticky top-0 bg-white/50 backdrop-blur dark:bg-background/50 py-2 px-3 z-10 border-b border-black/5">
             {month}
           </h3>
           <div className="">
@@ -64,7 +61,7 @@ export function HolidayList() {
               return (
                 <div
                   key={`${holiday.date}-${index}`}
-                  className={`flex gap-6 p-4 border-b border-neutral-100 dark:border-neutral-800 last:border-b-0`}
+                  className={`flex gap-6 py-4 px-3 border-b border-neutral-100 dark:border-neutral-800 last:border-b-0`}
                 >
                   <div className="flex flex-col min-w-20 sm:mt-0 text-gray-700 dark:text-gray-300 whitespace-nowrap">
                     <span className="text-xs font-medium text-neutral-400 dark:text-neutral-500">
