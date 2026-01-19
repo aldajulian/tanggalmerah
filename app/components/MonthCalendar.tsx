@@ -13,6 +13,11 @@ import { enUS, id } from "date-fns/locale";
 import { useSettingsStore } from "../store/settingsStore";
 import { dictionary } from "../data/dictionary";
 import { useEffect, useState } from "react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 type HolidayType = "national" | "collective";
 
@@ -139,9 +144,8 @@ export function MonthCalendar({
           const isCollective = holiday?.type === "collective";
           const isWeekendDay = isWeekend(date);
 
-          return (
+          const dayCell = (
             <div
-              key={dateStr}
               className={`relative aspect-cell ${
                 compact
                   ? "p-1 md:p-2 text-[8px] md:text-[11px] rounded-sm"
@@ -192,6 +196,37 @@ export function MonthCalendar({
               )}
             </div>
           );
+
+          if (holiday) {
+            return (
+              <HoverCard key={dateStr} openDelay={200} closeDelay={100}>
+                <HoverCardTrigger asChild>{dayCell}</HoverCardTrigger>
+                <HoverCardContent className="w-auto max-w-[280px] p-3" side="top">
+                  <div className="space-y-1">
+                    <p
+                      className={`text-xs font-medium ${
+                        isNational
+                          ? "text-red-600 dark:text-red-400"
+                          : "text-sky-600 dark:text-sky-400"
+                      }`}
+                    >
+                      {isNational ? t.legend.national : t.legend.collective}
+                    </p>
+                    <p className="text-sm font-medium text-foreground">
+                      {holiday.title}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {format(date, "EEEE, d MMMM yyyy", {
+                        locale: language === "id" ? id : enUS,
+                      })}
+                    </p>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
+            );
+          }
+
+          return <div key={dateStr}>{dayCell}</div>;
         })}
       </div>
     </div>

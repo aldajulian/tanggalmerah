@@ -51,7 +51,7 @@ export function HolidayList() {
     <div className="w-full max-w-2xl mx-auto space-y-6">
       {Object.entries(groupedHolidays).map(([month, holidaysInMonth]) => (
         <div key={month}>
-          <h3 className="text-base font-medium text-neutral-400 dark:text-neutral-400 sticky top-0 bg-white/50 backdrop-blur dark:bg-background/50 py-2 px-3 z-10 border-b border-black/5">
+          <h3 className="text-base font-medium text-neutral-400 dark:text-neutral-400 sticky top-0 bg-background/50 backdrop-blur dark:bg-background/50 py-2 px-3 z-10 border-b border-black/5">
             {month}
           </h3>
           <div className="">

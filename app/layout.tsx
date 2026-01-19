@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: light)", color: "#FAFAFA" },
     { media: "(prefers-color-scheme: dark)", color: "#212121" },
   ],
   width: "device-width",
@@ -66,7 +66,7 @@ export default function RootLayout({
             <section className="w-full flex justify-center">{children}</section>
           </main>
         </div>
-        <div className="blur"></div>
+        {/* <div className="blur"></div> */}
         <ServiceWorkerRegister />
       </body>
     </html>
