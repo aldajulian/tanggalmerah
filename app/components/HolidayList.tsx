@@ -10,7 +10,7 @@ import { dictionary } from "../data/dictionary";
 type Holiday = {
   date: string;
   title: string;
-  type: "national" | "collective";
+  type: "national" | "collective" | "annual";
 };
 
 const allHolidays: Holiday[] = [
@@ -22,11 +22,23 @@ const allHolidays: Holiday[] = [
     ...h,
     type: "collective" as const,
   })),
+  ...holidays.annualLeave.map((h) => ({
+    ...h,
+    type: "annual" as const,
+  })),
 ].sort((a, b) => a.date.localeCompare(b.date));
 
 export function HolidayList() {
-  const { language } = useSettingsStore();
+  const { language, showNational, showCollective, showAnnualLeave } = useSettingsStore();
   const t = dictionary[language];
+
+  const filteredHolidays = React.useMemo(() => {
+    return allHolidays.filter(h =>
+      (h.type === "national" && showNational) ||
+      (h.type === "collective" && showCollective) ||
+      (h.type === "annual" && showAnnualLeave)
+    );
+  }, [showNational, showCollective, showAnnualLeave]);
 
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => {
@@ -35,7 +47,7 @@ export function HolidayList() {
 
   if (!mounted) return null;
 
-  const groupedHolidays = allHolidays.reduce((groups, holiday) => {
+  const groupedHolidays = filteredHolidays.reduce((groups, holiday) => {
     const date = parseISO(holiday.date);
     const monthKey = format(date, "MMMM", {
       locale: language === "id" ? id : enUS,
@@ -58,6 +70,7 @@ export function HolidayList() {
             {holidaysInMonth.map((holiday, index) => {
               const date = parseISO(holiday.date);
               const isNational = holiday.type === "national";
+              const isCollective = holiday.type === "collective";
               return (
                 <div
                   key={`${holiday.date}-${index}`}
@@ -76,22 +89,20 @@ export function HolidayList() {
                     </span>
                   </div>
                   <div
-                    className={`flex-shrink-0 size-2 rounded-full mt-2 ${
-                      isNational ? "bg-red-600" : "bg-sky-400"
-                    }`}
+                    className={`shrink-0 size-2 rounded-full mt-2 ${isNational ? "bg-red-600" : isCollective ? "bg-sky-400" : "bg-purple-500"
+                      }`}
                   />
                   <div className="flex flex-col">
                     <span className="font-medium text-neutral-600 dark:text-neutral-400">
                       {holiday.title}
                     </span>
                     <span
-                      className={`text-sm ${
-                        isNational
-                          ? "text-red-600 dark:text-red-400"
-                          : "text-sky-600 dark:text-sky-400"
-                      }`}
+                      className={`text-sm ${isNational
+                        ? "text-red-600 dark:text-red-400"
+                        : isCollective ? "text-sky-600 dark:text-sky-400" : "text-purple-600 dark:text-purple-400"
+                        }`}
                     >
-                      {isNational ? t.legend.national : t.legend.collective}
+                      {isNational ? t.legend.national : isCollective ? t.legend.collective : t.recommendations.title}
                     </span>
                   </div>
                 </div>

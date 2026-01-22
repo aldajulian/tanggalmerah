@@ -58,7 +58,7 @@ export default function RootLayout({
       >
         <ThemeProvider />
         <div className="flex min-h-screen justify-center font-sans bg-background">
-          <main className="flex min-h-screen w-full max-w-2xl flex-col pt-12 pb-24 bg-background items-center">
+          <main className="flex min-h-screen w-full max-w-2xl flex-col pb-24 bg-background items-center">
             <Header />
 
             <Navigation />

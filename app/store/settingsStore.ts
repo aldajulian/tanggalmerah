@@ -10,6 +10,12 @@ interface SettingsState {
   setLanguage: (lang: "id" | "en") => void;
   theme: "system" | "light" | "dark";
   setTheme: (theme: "system" | "light" | "dark") => void;
+  showNational: boolean;
+  setShowNational: (val: boolean) => void;
+  showCollective: boolean;
+  setShowCollective: (val: boolean) => void;
+  showAnnualLeave: boolean;
+  setShowAnnualLeave: (val: boolean) => void;
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -21,6 +27,12 @@ export const useSettingsStore = create<SettingsState>()(
       setLanguage: (lang) => set({ language: lang }),
       theme: "system",
       setTheme: (theme) => set({ theme }),
+      showNational: true,
+      setShowNational: (val) => set({ showNational: val }),
+      showCollective: true,
+      setShowCollective: (val) => set({ showCollective: val }),
+      showAnnualLeave: true,
+      setShowAnnualLeave: (val) => set({ showAnnualLeave: val }),
     }),
     {
       name: "settings-storage",

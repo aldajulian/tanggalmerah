@@ -19,6 +19,14 @@ export const dictionary = {
       system: "Sistem",
       light: "Terang",
       dark: "Gelap",
+      national: "Libur Nasional",
+      collective: "Cuti Bersama",
+    },
+    recommendations: {
+      title: "Rekomendasi Cuti",
+      takeLeave: "Ambil Cuti",
+      longWeekend: "Long Weekend",
+      days: "Hari",
     },
     weekdays: {
       monday: ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"],
@@ -49,6 +57,14 @@ export const dictionary = {
       system: "System",
       light: "Light",
       dark: "Dark",
+      national: "National Holiday",
+      collective: "Collective Leave",
+    },
+    recommendations: {
+      title: "Leave Recommendations",
+      takeLeave: "Take Leave",
+      longWeekend: "Long Weekend",
+      days: "Days",
     },
     weekdays: {
       monday: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],

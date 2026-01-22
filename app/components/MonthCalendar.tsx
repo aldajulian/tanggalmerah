@@ -14,12 +14,12 @@ import { useSettingsStore } from "../store/settingsStore";
 import { dictionary } from "../data/dictionary";
 import { useEffect, useState } from "react";
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
-type HolidayType = "national" | "collective";
+type HolidayType = "national" | "collective" | "annual";
 
 interface Holiday {
   date: string;
@@ -44,11 +44,18 @@ export function MonthCalendar({
   stickyHeader = false,
   compact = false,
 }: MonthCalendarProps) {
-  const { weekStartsOn, language } = useSettingsStore();
-  const [hydrated, setHydrated] = useState(false);
+  const {
+    weekStartsOn,
+    language,
+    showNational,
+    showCollective,
+    showAnnualLeave
+  } = useSettingsStore();
+  const [openDate, setOpenDate] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setHydrated(true);
+    setIsMobile(window.matchMedia("(pointer: coarse)").matches);
   }, []);
 
   const monthStart = startOfMonth(month);
@@ -67,56 +74,40 @@ export function MonthCalendar({
   // Create empty slots for days before the first day of the month
   const emptySlots = Array.from({ length: startDayIndex });
 
-  // Mapping from our static array to dictionary values if we want full i18n for days
-  // But dictionary has weekdays arrays.
-
-  // Actually, let's use dictionary for weekdays
   const t = dictionary[language];
   const currentWeekDayNames = t.weekdays[weekStartsOn];
-
-  // if (!hydrated) {
-  //   return (
-  //     <div
-  //       className={`w-full ${className} animate-pulse h-64 bg-gray-100 dark:bg-gray-800 rounded-lg`}
-  //     ></div>
-  //   );
-  // }
 
   return (
     <div className={`w-full ${className}`}>
       {/* Month Header */}
       <div
-        className={`text-base font-medium py-2 px-3 text-neutral-900 dark:text-neutral-100 ${
-          stickyHeader
-            ? "sticky top-0 bg-background/80 backdrop-blur-sm z-20"
-            : ""
-        }`}
+        className={`text-base font-medium py-2 px-3 text-neutral-900 dark:text-neutral-100 ${stickyHeader
+          ? "sticky top-0 bg-background/80 backdrop-blur-sm z-20"
+          : ""
+          }`}
       >
         {format(month, "MMMM", { locale: language === "id" ? id : enUS })}
       </div>
 
       <div
-        className={`grid grid-cols-7 ${
-          compact
-            ? "gap-y-0.5 gap-0.5"
-            : "sticky top-[39px] z-20 gap-y-0.5 gap-0.5"
-        }`}
+        className={`grid grid-cols-7 ${compact
+          ? "gap-y-0.5 gap-0.5"
+          : "sticky top-[39px] z-20 gap-y-0.5 gap-0.5"
+          }`}
       >
         {/* Weekday Headers */}
         {!hideWeekdays && (
           <div
-            className={`col-span-7 grid grid-cols-7 mb-2 ${
-              stickyHeader
-                ? "bg-background/80 backdrop-blur-sm z-10 border-b border-t border-black/5 dark:border-white/5"
-                : ""
-            } px-2`}
+            className={`col-span-7 grid grid-cols-7 mb-2 ${stickyHeader
+              ? "bg-background/80 backdrop-blur-sm z-10 border-b border-t border-black/5 dark:border-white/5"
+              : ""
+              } px-2`}
           >
             {currentWeekDayNames.map((day) => (
               <div
                 key={day}
-                className={`text-left ${
-                  compact ? "text-[8px] px-0.5 pb-1" : "text-sm px-1 py-2"
-                } font-medium text-neutral-500 capitalize`}
+                className={`text-left ${compact ? "text-[8px] px-0.5 pb-1" : "text-xs px-1 py-2"
+                  } font-normal text-neutral-400 capitalize`}
               >
                 {day}
               </div>
@@ -125,9 +116,8 @@ export function MonthCalendar({
         )}
       </div>
       <div
-        className={`grid grid-cols-7 ${
-          compact ? "gap-y-0.5 gap-0.5" : "gap-y-0.5 gap-0.5"
-        } px-2`}
+        className={`grid grid-cols-7 ${compact ? "gap-y-0.5 gap-0.5" : "gap-y-0.5 gap-0.5"
+          } px-2`}
       >
         {/* Empty Slots */}
         {emptySlots.map((_, index) => (
@@ -139,37 +129,43 @@ export function MonthCalendar({
           const dateStr = format(date, "yyyy-MM-dd");
           const todayStr = format(new Date(), "yyyy-MM-dd");
           const isToday = dateStr === todayStr;
-          const holiday = holidays.find((h) => h.date === dateStr);
+          const holidayOriginal = holidays.find((h) => h.date === dateStr);
+          const holiday = holidayOriginal && (
+            (holidayOriginal.type === "national" && showNational) ||
+            (holidayOriginal.type === "collective" && showCollective) ||
+            (holidayOriginal.type === "annual" && showAnnualLeave)
+          ) ? holidayOriginal : null;
+
           const isNational = holiday?.type === "national";
           const isCollective = holiday?.type === "collective";
+          const isAnnual = holiday?.type === "annual";
           const isWeekendDay = isWeekend(date);
 
           const dayCell = (
             <div
-              className={`relative aspect-cell ${
-                compact
-                  ? "p-1 md:p-2 text-[8px] md:text-[11px] rounded-sm"
-                  : "p-1.5 md:p-2 text-xs md:text-base rounded-lg"
-              } w-full flex items-start justify-start font-medium leading-none
-                ${
-                  isNational
-                    ? "bg-red-50 text-red-700 font-normal dark:bg-red-900/20 dark:text-red-400"
-                    : ""
+              className={`relative aspect-cell ${compact
+                ? "p-1 md:p-2 text-[8px] md:text-[11px] rounded-sm"
+                : "p-1.5 md:p-2 text-xs md:text-base rounded-lg"
+                } w-full flex items-start justify-start font-medium leading-none
+                ${isNational
+                  ? "bg-red-50 text-red-700 font-normal dark:bg-red-900/20 dark:text-red-400"
+                  : ""
                 }
-                ${
-                  isCollective
-                    ? "bg-sky-50 text-sky-700 font-normal dark:bg-sky-900/20 dark:text-sky-400"
-                    : ""
+                ${isCollective
+                  ? "bg-sky-50 text-sky-700 font-normal dark:bg-sky-900/20 dark:text-sky-400"
+                  : ""
                 }
-                ${
-                  !holiday && isWeekendDay
-                    ? "bg-neutral-100 dark:bg-neutral-800/60 text-neutral-600 dark:text-neutral-400"
-                    : ""
+                ${isAnnual
+                  ? "bg-purple-50 text-purple-700 font-normal dark:bg-purple-900/20 dark:text-purple-400"
+                  : ""
                 }
-                ${
-                  !holiday && !isWeekendDay
-                    ? "text-neutral-600 dark:text-neutral-400"
-                    : ""
+                ${!holiday && isWeekendDay
+                  ? "bg-neutral-100 dark:bg-neutral-800/60 text-neutral-600 dark:text-neutral-400"
+                  : ""
+                }
+                ${!holiday && !isWeekendDay
+                  ? "text-neutral-600 dark:text-neutral-400"
+                  : ""
                 }
                 ${isToday ? "ring-1 ring-sky-400 dark:ring-sky-700 z-10" : ""}
               `}
@@ -178,20 +174,26 @@ export function MonthCalendar({
               {/* Dot Indicators */}
               {isNational && (
                 <div
-                  className={`absolute ${
-                    compact
-                      ? "bottom-1 left-1 size-0.75"
-                      : "bottom-2 left-2 size-1.5"
-                  } bg-red-500 rounded-full dark:bg-red-400`}
+                  className={`absolute ${compact
+                    ? "bottom-1 left-1 size-0.75"
+                    : "bottom-2 left-2 size-1.5"
+                    } bg-red-500 rounded-full dark:bg-red-400`}
                 />
               )}
               {isCollective && (
                 <div
-                  className={`absolute ${
-                    compact
-                      ? "bottom-1 left-1 size-0.75"
-                      : "bottom-2 left-2 size-1.5"
-                  } bg-sky-500 rounded-full dark:bg-sky-400`}
+                  className={`absolute ${compact
+                    ? "bottom-1 left-1 size-0.75"
+                    : "bottom-2 left-2 size-1.5"
+                    } bg-sky-500 rounded-full dark:bg-sky-400`}
+                />
+              )}
+              {isAnnual && (
+                <div
+                  className={`absolute ${compact
+                    ? "bottom-1 left-1 size-0.75"
+                    : "bottom-2 left-2 size-1.5"
+                    } bg-purple-500 rounded-full dark:bg-purple-400`}
                 />
               )}
             </div>
@@ -199,18 +201,34 @@ export function MonthCalendar({
 
           if (holiday) {
             return (
-              <HoverCard key={dateStr} openDelay={200} closeDelay={100}>
-                <HoverCardTrigger asChild>{dayCell}</HoverCardTrigger>
-                <HoverCardContent className="w-auto max-w-[280px] p-3" side="top">
+              <Popover
+                key={dateStr}
+                open={openDate === dateStr}
+                onOpenChange={(open) => setOpenDate(open ? dateStr : null)}
+              >
+                <PopoverTrigger
+                  asChild
+                  onMouseEnter={() => !isMobile && setOpenDate(dateStr)}
+                  onMouseLeave={() => !isMobile && setOpenDate(null)}
+                >
+                  {dayCell}
+                </PopoverTrigger>
+                <PopoverContent
+                  className="w-auto max-w-[280px] p-3"
+                  side="top"
+                  onMouseEnter={() => !isMobile && setOpenDate(dateStr)}
+                  onMouseLeave={() => !isMobile && setOpenDate(null)}
+                >
                   <div className="space-y-1">
                     <p
-                      className={`text-xs font-medium ${
-                        isNational
+                      className={`text-xs font-medium ${isNational
                           ? "text-red-600 dark:text-red-400"
-                          : "text-sky-600 dark:text-sky-400"
-                      }`}
+                          : isCollective
+                            ? "text-sky-600 dark:text-sky-400"
+                            : "text-purple-600 dark:text-purple-400"
+                        }`}
                     >
-                      {isNational ? t.legend.national : t.legend.collective}
+                      {isNational ? t.legend.national : isCollective ? t.legend.collective : t.recommendations.title}
                     </p>
                     <p className="text-sm font-medium text-foreground">
                       {holiday.title}
@@ -221,8 +239,8 @@ export function MonthCalendar({
                       })}
                     </p>
                   </div>
-                </HoverCardContent>
-              </HoverCard>
+                </PopoverContent>
+              </Popover>
             );
           }
 

@@ -29,7 +29,7 @@ export const Header = () => {
   }
 
   return (
-    <header className="flex w-full flex-col items-start mb-6 text-center px-4">
+    <header className="flex w-full flex-col items-start py-18 text-center px-4">
       <div className="flex items-center gap-2 border font-semibold border-black/15 dark:border-white/15 text-sm px-3 py-1 rounded-full mb-4 dark:text-gray-300">
         2026
       </div>

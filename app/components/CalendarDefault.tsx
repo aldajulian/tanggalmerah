@@ -17,6 +17,10 @@ export function CalendarDefault() {
       ...h,
       type: "collective" as const,
     })),
+    ...holidays.annualLeave.map((h) => ({
+      ...h,
+      type: "annual" as const,
+    })),
   ];
 
   return (
