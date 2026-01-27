@@ -235,7 +235,11 @@ export const Navigation = () => {
               <List />
             </motion.div>
           </Link>
-          <motion.div className="flex items-center px-1 ml-auto" animate={{ opacity: setting ? 0 : 1 }} transition={springTransition}>
+          <motion.div
+            className="flex items-center px-1 ml-auto" 
+            animate={{ opacity: setting ? 0 : 1 }}
+            transition={{ type: "spring", bounce: 0.15, duration: 0.6 }}
+          >
             <div className="w-0.5 h-[60%] rounded-md bg-neutral-200 dark:bg-neutral-700" />
           </motion.div>
           <motion.button
