@@ -11,13 +11,6 @@ import { dictionary } from "../data/dictionary";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 
-const springTransition = {
-  type: "spring",
-  stiffness: 250,
-  damping: 25,
-  mass: 1,
-};
-
 const SegmentedControl = <T extends string>({
   label,
   value,
@@ -197,7 +190,7 @@ export const Navigation = () => {
         <motion.div
           className="flex absolute bottom-1 left-0 right-0 mx-auto justify-between px-1 w-full select-none"
           animate={{ width: setting ? 360 : 210 }}
-          transition={springTransition}
+          transition={{ type: "spring", bounce: 0.15, duration: 0.6 }}
         >
           <Link href="/year" className="contents">
             <motion.div
