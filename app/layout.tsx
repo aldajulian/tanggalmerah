@@ -17,9 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bila Libur",
+  title: "Tanggal Merah",
   description:
-    "Bila Libur adalah aplikasi untuk mengetahui libur nasional dan sekolah di Indonesia.",
+    "Indonesian holiday calendar to help you plan your vacations and time off.",
   icons: {
     icon: [
       {

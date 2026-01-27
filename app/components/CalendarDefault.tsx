@@ -1,6 +1,3 @@
-"use client";
-
-import * as React from "react";
 import { holidays } from "../../data/holidays";
 import { MonthCalendar } from "./MonthCalendar";
 

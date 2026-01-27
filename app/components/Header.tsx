@@ -15,14 +15,14 @@ export const Header = () => {
 
   if (!mounted) {
     return (
-      <header className="flex w-full flex-col items-start mb-6 text-center px-4 animate-pulse">
-        <div className="h-7.5 w-22 bg-neutral-200 dark:bg-neutral-800 rounded-full mb-4"></div>
-        <div className="h-9 w-60 bg-neutral-200 dark:bg-neutral-800 rounded-lg mb-4"></div>
-        <div className="h-9 w-full bg-neutral-200 dark:bg-neutral-800 rounded-lg mb-4"></div>
-        <div className="flex gap-4">
-          <div className="h-4 w-26 bg-neutral-200 dark:bg-neutral-800 rounded"></div>
-          <div className="h-4 w-26 bg-neutral-200 dark:bg-neutral-800 rounded"></div>
-          <div className="h-4 w-26 bg-neutral-200 dark:bg-neutral-800 rounded"></div>
+      <header className="flex w-full flex-col items-start text-center px-4 animate-pulse py-18">
+        <div className="h-7.5 w-16 bg-neutral-200 dark:bg-neutral-800 rounded-full mb-4"></div>
+        <div className="h-9 w-90 bg-neutral-200 dark:bg-neutral-800 rounded-lg mb-4"></div>
+        <div className="h-9 w-110 bg-neutral-200 dark:bg-neutral-800 rounded-lg mb-4"></div>
+        <div className="flex gap-4 mt-2">
+          <div className="h-5 w-26 bg-neutral-200 dark:bg-neutral-800 rounded-full"></div>
+          <div className="h-5 w-26 bg-neutral-200 dark:bg-neutral-800 rounded-full"></div>
+          <div className="h-5 w-26 bg-neutral-200 dark:bg-neutral-800 rounded-full"></div>
         </div>
       </header>
     );

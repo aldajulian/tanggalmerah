@@ -112,15 +112,16 @@ export const Navigation = () => {
     <>
 
       <motion.div
+        initial={{ width: 210, height: 48 }}
         animate={{
           width: setting ? 360 : 210,
           height: setting ? 380 : 48,
         }}
-        transition={{ type: "spring", stiffness: 250, damping: 25, mass: 1 }}
+        transition={{ type: "spring", bounce: 0.15, duration: 0.6 }}
         dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
         dragElastic={0.1}
         drag={!setting}
-        className="navigation flex flex-col fixed h-12 z-30 mx-auto left-0 right-0 bg-white/70 backdrop-blur dark:bg-neutral-800 select-none overflow-hidden rounded-xl border border-black/5 dark:border-white/5"
+        className="navigation flex flex-col fixed h-12 z-30 mx-auto left-0 right-0 bg-white/80 backdrop-blur dark:bg-neutral-800 select-none overflow-hidden rounded-xl"
       >
         <AnimatePresence>
           {setting && (
@@ -194,7 +195,9 @@ export const Navigation = () => {
           )}
         </AnimatePresence>
         <motion.div
-          className="flex absolute bottom-1 left-0 right-0 mx-auto justify-between px-1 w-full select-none max-w-54"
+          className="flex absolute bottom-1 left-0 right-0 mx-auto justify-between px-1 w-full select-none"
+          animate={{ width: setting ? 360 : 210 }}
+          transition={springTransition}
         >
           <Link href="/year" className="contents">
             <motion.div
@@ -215,7 +218,7 @@ export const Navigation = () => {
             >
               <Calendar />
               <span
-                className="block absolute top-[55%] -translate-y-[55%] right-1/2 translate-x-1/2 text-xs leading-none text-red-500 font-semibold"
+                className="block absolute top-[55%] -translate-y-[55%] right-1/2 translate-x-1/2 text-[10px] leading-none text-red-500 font-semibold"
                 suppressHydrationWarning={true}
               >
                 {date}
@@ -232,9 +235,9 @@ export const Navigation = () => {
               <List />
             </motion.div>
           </Link>
-          <div className="flex items-center px-1">
+          <motion.div className="flex items-center px-1 ml-auto" animate={{ opacity: setting ? 0 : 1 }} transition={springTransition}>
             <div className="w-0.5 h-[60%] rounded-md bg-neutral-200 dark:bg-neutral-700" />
-          </div>
+          </motion.div>
           <motion.button
             onClick={() => setSetting(!setting)}
             className={`flex items-center justify-center px-3 py-2 text-sm font-medium rounded-lg transition-all ${setting
