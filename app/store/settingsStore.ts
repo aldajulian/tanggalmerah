@@ -16,6 +16,8 @@ interface SettingsState {
   setShowCollective: (val: boolean) => void;
   showAnnualLeave: boolean;
   setShowAnnualLeave: (val: boolean) => void;
+  showSchoolHolidays: boolean;
+  setShowSchoolHolidays: (val: boolean) => void;
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -25,7 +27,7 @@ export const useSettingsStore = create<SettingsState>()(
       setWeekStartsOn: (day) => set({ weekStartsOn: day }),
       language: "id", // Default to Indonesian
       setLanguage: (lang) => set({ language: lang }),
-      theme: "system",
+      theme: "light",
       setTheme: (theme) => set({ theme }),
       showNational: true,
       setShowNational: (val) => set({ showNational: val }),
@@ -33,9 +35,11 @@ export const useSettingsStore = create<SettingsState>()(
       setShowCollective: (val) => set({ showCollective: val }),
       showAnnualLeave: true,
       setShowAnnualLeave: (val) => set({ showAnnualLeave: val }),
+      showSchoolHolidays: false,
+      setShowSchoolHolidays: (val) => set({ showSchoolHolidays: val }),
     }),
     {
       name: "settings-storage",
-    }
-  )
+    },
+  ),
 );

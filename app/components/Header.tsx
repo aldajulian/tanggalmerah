@@ -16,7 +16,7 @@ export const Header = () => {
   if (!mounted) {
     return (
       <header className="flex w-full flex-col items-start text-center px-4 animate-pulse py-18">
-        <div className="h-7.5 w-16 bg-neutral-200 dark:bg-neutral-800 rounded-full mb-4"></div>
+        <div className="h-6 w-16 bg-neutral-200 dark:bg-neutral-800 rounded-full mb-4"></div>
         <div className="h-9 w-90 bg-neutral-200 dark:bg-neutral-800 rounded-lg mb-4"></div>
         <div className="h-9 w-110 bg-neutral-200 dark:bg-neutral-800 rounded-lg mb-4"></div>
         <div className="flex gap-4 mt-2">
@@ -30,28 +30,38 @@ export const Header = () => {
 
   return (
     <header className="flex w-full flex-col items-start py-18 text-center px-4">
-      <div className="flex items-center gap-2 border font-semibold border-black/15 dark:border-white/15 text-sm px-3 py-1 rounded-full mb-4 dark:text-gray-300">
-        2026
+      <div className="flex items-center gap-2 font-semibold text-sm mb-2 dark:text-gray-300 -rotate-2">
+        <span className="mr-0.25 text-gray-500 dark:text-gray-400">(</span>
+        <span className="text-red font-bold text-base">2026</span>
+        <span className="ml-0.25 text-gray-500 dark:text-gray-400">)</span>
       </div>
-      <h1 className="text-2xl md:text-4xl font-semibold mb-6 dark:text-white text-left">
-        {t.title}{" "}
-        {/* <span className="inline-block -rotate-2 bg-red-500/10 rounded-full px-4 py-1 text-red-500">
-          {t.legend.national}
-        </span>{" "} */}
-        & <br className="hidden sm:block" />{" "}
-        <span className="inline-block rotate-2 bg-sky-500/10 rounded-full px-4 py-1 text-sky-500">
-          {t.subtitle}
+      <h1 className="text-4xl md:text-5xl font-bold mb-6 dark:text-white text-left text-[#262626] leading-wide">
+        Indonesia{" "}
+        <span className="inline-block rounded-full px-6 py-2 text-red bg-red/10 -rotate-2">
+          Public
         </span>{" "}
-        {t.country}
+        &{" "}
+        <span className="inline-block rounded-full px-6 py-2 text-green bg-green/10 rotate-2">
+          School
+        </span>{" "}
+        Holidays
       </h1>
-      <ul className="flex flex-wrap justify-center gap-4 text-sm text-black/60 dark:text-white/60">
+      <ul className="flex flex-row flex-wrap justify-start gap-4 text-sm text-black/60 dark:text-white/60">
         <li className="flex items-center gap-2">
-          <span className="block size-2 rounded-full bg-red-500"></span>
+          <span className="block size-2 rounded-full bg-red"></span>
           {t.legend.national}
         </li>
         <li className="flex items-center gap-2">
-          <span className="block size-2 rounded-full bg-sky-400"></span>
+          <span className="block size-2 rounded-full bg-sky"></span>
           {t.legend.collective}
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="block size-2 rounded-full bg-green"></span>
+          {t.legend.school}
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="block size-2 rounded-full bg-purple"></span>
+          {t.legend.recommendation}
         </li>
         <li className="flex items-center gap-2">
           <span className="block size-2 rounded-full bg-neutral-200"></span>
