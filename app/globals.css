@@ -81,6 +81,10 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
   --color-blue: rgb(60, 130, 247);
+  --color-red: rgb(255, 59, 48);
+  --color-green: rgb(52, 199, 89);
+  --color-sky: rgb(90, 200, 250);
+  --color-purple: rgb(175, 82, 222);
   --shadow-md:
     0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06),
     0 0 0 1px rgba(0, 0, 0, 0.04);

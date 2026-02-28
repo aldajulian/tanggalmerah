@@ -8,6 +8,7 @@ export const dictionary = {
       collective: "Cuti Bersama",
       school: "Libur Sekolah",
       weekend: "Akhir Pekan",
+      recommendation: "Rekomendasi Cuti",
     },
     settings: {
       weekStartsOn: "Awal Minggu",
@@ -47,6 +48,7 @@ export const dictionary = {
     legend: {
       national: "National Holiday",
       collective: "Collective Leave",
+      recommendation: "Recommendation Leave",
       school: "School Holiday",
       weekend: "Weekend",
     },
@@ -64,6 +66,7 @@ export const dictionary = {
       national: "National Holiday",
       collective: "Collective Leave",
       school: "School Holiday",
+      recommendation: "Recommendation Leave",
     },
     recommendations: {
       title: "Leave Recommendations",

@@ -149,7 +149,7 @@ export const Navigation = () => {
               >
                 <Calendar />
                 <span
-                  className="block absolute top-[53%] -translate-y-[50%] right-1/2 translate-x-1/2 text-[10px] leading-none text-[#FF3B30] font-semibold"
+                  className="block absolute top-[53%] text-[10px] leading-none text-[#FF3B30] font-semibold -translate-y-1/2 pointer-events-none translate-x-1/2 right-[52%]"
                   suppressHydrationWarning={true}
                 >
                   {date}
@@ -185,8 +185,8 @@ export const Navigation = () => {
                 whileTap={{ scale: 0.85 }}
                 className={`flex items-center justify-center p-3 me-0 text-sm font-medium rounded-full ${
                   setting
-                    ? "bg-black/5 dark:bg-white/10 text-blue dark:text-white"
-                    : "text-neutral-400 fill-neutral-500 hover:bg-blue/50 hover:text-neutral-700 dark:hover:text-gray-300"
+                    ? "bg-blue/10 dark:bg-white/10 text-blue dark:text-white"
+                    : "text-neutral-400 fill-neutral-500 hover:bg-blue/10 hover:text-blue dark:hover:text-gray-300"
                 }`}
               >
                 <Setting />

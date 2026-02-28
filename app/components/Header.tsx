@@ -30,32 +30,38 @@ export const Header = () => {
 
   return (
     <header className="flex w-full flex-col items-start py-18 text-center px-4">
-      <div className="flex items-center gap-2font-semibold text-sm mb-4 dark:text-gray-300">
-        <span className="mr-1">(</span> 2026 <span className="ml-1">)</span>
+      <div className="flex items-center gap-2 font-semibold text-sm mb-2 dark:text-gray-300 -rotate-2">
+        <span className="mr-0.25 text-gray-500 dark:text-gray-400">(</span>
+        <span className="text-red font-bold text-base">2026</span>
+        <span className="ml-0.25 text-gray-500 dark:text-gray-400">)</span>
       </div>
-      <h1 className="text-2xl md:text-4xl font-semibold mb-6 dark:text-white text-left">
-        {/* {t.title}{" "} */}
-        <span className="inline-block rounded-full px-4 py-1 text-red-500">
-          {t.legend.national}
+      <h1 className="text-4xl md:text-5xl font-bold mb-6 dark:text-white text-left text-[#262626] leading-wide">
+        Indonesia{" "}
+        <span className="inline-block rounded-full px-6 py-2 text-red bg-red/10 -rotate-2">
+          Public
         </span>{" "}
-        & <br className="hidden sm:block" />{" "}
-        <span className="inline-block rounded-full px-4 py-1 text-[#5AC8FA]">
-          {t.subtitle}
+        &{" "}
+        <span className="inline-block rounded-full px-6 py-2 text-green bg-green/10 rotate-2">
+          School
         </span>{" "}
-        {t.country}
+        Holidays
       </h1>
       <ul className="flex flex-row flex-wrap justify-start gap-4 text-sm text-black/60 dark:text-white/60">
         <li className="flex items-center gap-2">
-          <span className="block size-2 rounded-full bg-[#FF3B30]"></span>
+          <span className="block size-2 rounded-full bg-red"></span>
           {t.legend.national}
         </li>
         <li className="flex items-center gap-2">
-          <span className="block size-2 rounded-full bg-[#5AC8FA]"></span>
+          <span className="block size-2 rounded-full bg-sky"></span>
           {t.legend.collective}
         </li>
         <li className="flex items-center gap-2">
-          <span className="block size-2 rounded-full bg-[#34C759]"></span>
+          <span className="block size-2 rounded-full bg-green"></span>
           {t.legend.school}
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="block size-2 rounded-full bg-purple"></span>
+          {t.legend.recommendation}
         </li>
         <li className="flex items-center gap-2">
           <span className="block size-2 rounded-full bg-neutral-200"></span>

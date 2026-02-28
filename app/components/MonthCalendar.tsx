@@ -14,6 +14,7 @@ import { dictionary } from "../data/dictionary";
 import { useEffect, useState } from "react";
 import {
   Popover,
+  PopoverArrow,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
@@ -250,12 +251,14 @@ export function MonthCalendar({
                 >
                   {dayCell}
                 </PopoverTrigger>
+                {/* <PopoverAnchor asChild /> */}
                 <PopoverContent
                   className="w-auto max-w-[280px] py-3 px-4 mx-2 rounded-xl bg-white/90 backdrop-blur dark:bg-neutral-800/90 border-0 shadow-lg"
                   side="top"
                   onMouseEnter={() => !isMobile && setOpenDate(dateStr)}
                   onMouseLeave={() => !isMobile && setOpenDate(null)}
                 >
+                  <PopoverArrow className="fill-white/90 dark:fill-neutral-800/90" />
                   <div className="space-y-3">
                     {dayHolidays.map((h, i) => (
                       <div
