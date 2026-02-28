@@ -27,7 +27,7 @@ export const useSettingsStore = create<SettingsState>()(
       setWeekStartsOn: (day) => set({ weekStartsOn: day }),
       language: "id", // Default to Indonesian
       setLanguage: (lang) => set({ language: lang }),
-      theme: "system",
+      theme: "light",
       setTheme: (theme) => set({ theme }),
       showNational: true,
       setShowNational: (val) => set({ showNational: val }),
@@ -40,6 +40,6 @@ export const useSettingsStore = create<SettingsState>()(
     }),
     {
       name: "settings-storage",
-    }
-  )
+    },
+  ),
 );

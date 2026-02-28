@@ -159,10 +159,12 @@ export function HolidayList() {
                           className={`size-2 rounded-full ${dotColorMap[h.type]} mt-1.75`}
                         />
                         <div className="flex flex-col">
-                          <span className="font-medium text-neutral-600 dark:text-neutral-400">
+                          <span className="font-medium text-neutral-900 dark:text-neutral-100">
                             {h.title}
                           </span>
-                          <span className={`text-sm ${textColorMap[h.type]}`}>
+                          <span
+                            className={`text-sm text-neutral-400 dark:text-neutral-500`}
+                          >
                             {getTypeLabel(h.type, t)}
                           </span>
                         </div>

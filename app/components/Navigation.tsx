@@ -119,29 +119,37 @@ export const Navigation = () => {
           >
             <motion.div
               whileTap={{ scale: 0.85 }}
-              className={`flex items-center justify-center p-3 text-sm font-medium rounded-full cursor-pointer ${
+              className={`flex items-center justify-center text-sm font-medium rounded-full cursor-pointer ${
                 isGrid
                   ? "bg-black/5 dark:bg-white/10 text-[#262626] dark:text-white"
-                  : "text-neutral-400 hover:text-neutral-700 dark:hover:text-gray-300"
+                  : "text-neutral-400 hover:bg-black/5 dark:hover:bg-white/10 hover:text-neutral-700 dark:hover:text-gray-300"
               }`}
             >
-              <Link href="/year" className="contents">
+              <Link
+                href="/year"
+                className="flex contents p-3"
+                aria-label="Year view"
+              >
                 <Grid />
               </Link>
             </motion.div>
 
             <motion.div
               whileTap={{ scale: 0.85 }}
-              className={`flex items-center justify-center relative p-3 text-sm font-medium rounded-full cursor-pointer ${
+              className={`flex items-center justify-center relative text-sm font-medium rounded-full cursor-pointer ${
                 isStack
                   ? "bg-black/5 dark:bg-white/10 text-[#262626] dark:text-white"
-                  : "text-neutral-400 hover:text-neutral-700 dark:hover:text-gray-300"
+                  : "text-neutral-400 hover:bg-black/5 dark:hover:bg-white/10 hover:text-neutral-700 dark:hover:text-gray-300"
               }`}
             >
-              <Link href="/" className="contents">
+              <Link
+                href="/"
+                className="flex contents p-3"
+                aria-label="Calendar view"
+              >
                 <Calendar />
                 <span
-                  className="block absolute top-[55%] -translate-y-[50%] right-1/2 translate-x-1/2 text-[10px] leading-none text-[#FF3B30] font-semibold"
+                  className="block absolute top-[53%] -translate-y-[50%] right-1/2 translate-x-1/2 text-[10px] leading-none text-[#FF3B30] font-semibold"
                   suppressHydrationWarning={true}
                 >
                   {date}
@@ -151,13 +159,17 @@ export const Navigation = () => {
 
             <motion.div
               whileTap={{ scale: 0.85 }}
-              className={`flex items-center justify-center p-3 text-sm font-medium rounded-full cursor-pointer ${
+              className={`flex items-center justify-center text-sm font-medium rounded-full cursor-pointer ${
                 isList
                   ? "bg-black/5 dark:bg-white/10 text-[#262626] dark:text-white"
-                  : "text-neutral-400 hover:text-neutral-700 dark:hover:text-gray-300"
+                  : "text-neutral-400 hover:bg-black/5 dark:hover:bg-white/10 hover:text-neutral-700 dark:hover:text-gray-300"
               }`}
             >
-              <Link href="/list" className="contents">
+              <Link
+                href="/list"
+                className="flex contents p-3"
+                aria-label="List view"
+              >
                 <List />
               </Link>
             </motion.div>
@@ -169,11 +181,12 @@ export const Navigation = () => {
             </motion.div>
             <PopoverTrigger asChild>
               <motion.button
+                aria-label="setting"
                 whileTap={{ scale: 0.85 }}
                 className={`flex items-center justify-center p-3 me-0 text-sm font-medium rounded-full ${
                   setting
-                    ? "bg-black/5 dark:bg-white/10 text-[#262626] dark:text-white"
-                    : "text-neutral-400 fill-neutral-500 hover:text-neutral-700 dark:hover:text-gray-300"
+                    ? "bg-black/5 dark:bg-white/10 text-blue dark:text-white"
+                    : "text-neutral-400 fill-neutral-500 hover:bg-blue/50 hover:text-neutral-700 dark:hover:text-gray-300"
                 }`}
               >
                 <Setting />
