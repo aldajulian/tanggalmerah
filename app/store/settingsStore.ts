@@ -16,6 +16,8 @@ interface SettingsState {
   setShowCollective: (val: boolean) => void;
   showAnnualLeave: boolean;
   setShowAnnualLeave: (val: boolean) => void;
+  showSchoolHolidays: boolean;
+  setShowSchoolHolidays: (val: boolean) => void;
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -33,6 +35,8 @@ export const useSettingsStore = create<SettingsState>()(
       setShowCollective: (val) => set({ showCollective: val }),
       showAnnualLeave: true,
       setShowAnnualLeave: (val) => set({ showAnnualLeave: val }),
+      showSchoolHolidays: false,
+      setShowSchoolHolidays: (val) => set({ showSchoolHolidays: val }),
     }),
     {
       name: "settings-storage",

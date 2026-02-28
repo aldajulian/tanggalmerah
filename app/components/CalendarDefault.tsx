@@ -18,6 +18,10 @@ export function CalendarDefault() {
       ...h,
       type: "annual" as const,
     })),
+    ...holidays.schoolHolidays.map((h) => ({
+      ...h,
+      type: "school" as const,
+    })),
   ];
 
   return (

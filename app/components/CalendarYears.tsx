@@ -21,6 +21,10 @@ export function CalendarYears() {
       ...h,
       type: "annual" as const,
     })),
+    ...holidays.schoolHolidays.map((h) => ({
+      ...h,
+      type: "school" as const,
+    })),
   ];
 
   return (

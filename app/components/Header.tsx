@@ -39,19 +39,23 @@ export const Header = () => {
           {t.legend.national}
         </span>{" "} */}
         & <br className="hidden sm:block" />{" "}
-        <span className="inline-block rotate-2 bg-sky-500/10 rounded-full px-4 py-1 text-sky-500">
+        <span className="inline-block rotate-2 bg-[#5AC8FA]/10 rounded-full px-4 py-1 text-[#5AC8FA]">
           {t.subtitle}
         </span>{" "}
         {t.country}
       </h1>
-      <ul className="flex flex-wrap justify-center gap-4 text-sm text-black/60 dark:text-white/60">
+      <ul className="flex flex-row flex-wrap justify-start gap-4 text-sm text-black/60 dark:text-white/60">
         <li className="flex items-center gap-2">
-          <span className="block size-2 rounded-full bg-red-500"></span>
+          <span className="block size-2 rounded-full bg-[#FF3B30]"></span>
           {t.legend.national}
         </li>
         <li className="flex items-center gap-2">
-          <span className="block size-2 rounded-full bg-sky-400"></span>
+          <span className="block size-2 rounded-full bg-[#5AC8FA]"></span>
           {t.legend.collective}
+        </li>
+        <li className="flex items-center gap-2">
+          <span className="block size-2 rounded-full bg-[#34C759]"></span>
+          {t.legend.school}
         </li>
         <li className="flex items-center gap-2">
           <span className="block size-2 rounded-full bg-neutral-200"></span>

@@ -6,6 +6,7 @@ export const dictionary = {
     legend: {
       national: "Libur Nasional",
       collective: "Cuti Bersama",
+      school: "Libur Sekolah",
       weekend: "Akhir Pekan",
     },
     settings: {
@@ -21,6 +22,7 @@ export const dictionary = {
       dark: "Gelap",
       national: "Libur Nasional",
       collective: "Cuti Bersama",
+      school: "Libur Sekolah",
     },
     recommendations: {
       title: "Rekomendasi Cuti",
@@ -35,6 +37,7 @@ export const dictionary = {
     month: {
       holiday: "Libur Nasional",
       collective: "Cuti Bersama",
+      school: "Libur Sekolah",
     },
   },
   en: {
@@ -44,6 +47,7 @@ export const dictionary = {
     legend: {
       national: "National Holiday",
       collective: "Collective Leave",
+      school: "School Holiday",
       weekend: "Weekend",
     },
     settings: {
@@ -59,6 +63,7 @@ export const dictionary = {
       dark: "Dark",
       national: "National Holiday",
       collective: "Collective Leave",
+      school: "School Holiday",
     },
     recommendations: {
       title: "Leave Recommendations",
@@ -73,6 +78,7 @@ export const dictionary = {
     month: {
       holiday: "National Holiday",
       collective: "Collective Leave",
+      school: "School Holiday",
     },
   },
 };
